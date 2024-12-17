@@ -66,6 +66,10 @@ params:
     archive: "01-02"
     # Default to "Jan 02, 2006"
     single: "2006, 01-02"
+
+  # Hide the title in the header
+  hiddenTitleInHeader: false
+
 menu:
   header:
     - name: Articles

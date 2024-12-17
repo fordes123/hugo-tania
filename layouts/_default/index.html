@@ -13,7 +13,7 @@
                     {{ $icon := delimit (after 1 $parts) " " }}
                     <a href="{{ $item.url | safeURL }}" target="_blank" rel="noreferrer" title="{{ $name }}"
                        aria-label="{{ $name }}">
-                        {{ partial "icons/icon" (dict "vendor" $vendor "name" $icon "width" "25" "height" "25" "color" $item.color) }}
+                        {{ partial "icons/icon" (dict "vendor" $vendor "name" $icon "width" "22" "height" "22" "color" $item.color) }}
                     </a>
                 {{ end }}
             </div>
@@ -39,7 +39,8 @@
             <div class="post">
                 <a href="{{ .RelPermalink }}">
                     <div class="post-row">
-                        <time>{{ .Date.Format "Jan 02" }}</time>
+                        {{ $dateFormat := .Site.Params.dateFormat.archive | default "Jan 02" }}
+                        <time>{{ .Date.Format $dateFormat }}</time>
                         <h3>{{ .Title }}</h3>
                     </div>
                     <!--<div class="new-post">New!</div>-->

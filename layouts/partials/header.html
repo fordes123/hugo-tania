@@ -11,7 +11,10 @@
                     {{ with .Site.Params.titleLogo }}
                         <img src="{{ . | relURL }}" />
                     {{ end }}
+                    {{ if eq .Site.Params.hiddenTitleInHeader true }}
+                    {{ else }}
                     {{ .Site.Title }}
+                    {{ end }}
                     </a>
             </div>
             <div class="flex">
