@@ -39,7 +39,7 @@ params:
       # required The icon vendor and name, e.g. fab github, fas envelope.
       icon: "fab github" 
       # required The url of social link.
-      url: "https://dev.to/winglim"
+      url: "https://github.com/fordes123"
       # optional The color of icon, e.g. blue, red, #FF438A.
       color: currentColor 
     email:

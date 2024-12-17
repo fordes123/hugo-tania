@@ -35,20 +35,20 @@ disqusShortname = "https-hugo-tania-netlify-app"
 
   # Show your social information with icon on index bio with `_index.md` content.
   [params.socialOptions]
-    dev-to = ""
-    email = ""
-    facebook = ""
-    github = ""
-    instagram = ""
-    linkedin = ""
-    medium = ""
-    stack-overflow = ""
-    steam = ""
-    telegram = ""
-    twitter = ""
-    twitch = ""
-    whatsapp = ""
-  
+    [params.socialOptions.github]
+    # The icon vendor and name, e.g. fab github, fas envelope
+    icon = "fab github"
+    # The url of social link
+    url = "https://github.com/fordes123"
+    # The color of icon, e.g. blue, red, #FF438A
+    color = "currentColor"
+    
+    [params.socialOptions.email]
+    # The icon vendor and name, e.g. fab github, fas envelope
+    icon = "fas envelope"
+    # The url of social link
+    url = "mailto:noreply@example.org"
+
   # Comments settigns
   [params.comments]
     enabled = true
