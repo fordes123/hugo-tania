@@ -7,19 +7,14 @@
             {{ . }}
             {{ end }}
             <div class="bio-social">
-                {{ range $name, $path := $.Param "socialOptions" }}
-                {{ if (and $path (ne $name "email")) }}
-                <a href="{{ $path | safeURL }}" target="_blank" rel="noreferrer" title="{{ $name }}"
-                    aria-label="{{ $name }}">
-                    {{ partial (print "svgs/social/" $name ".svg") (dict "width" 25 "height" 25) }}
-                </a>
-                {{ end }}
-                {{ if (and $path (eq $name "email")) }}
-                <a href="mailto:{{ $path | safeURL }}" target="_blank" rel="noreferrer" title="{{ $path }}"
-                    aria-label="{{ $name }}">
-                    {{ partial (print "svgs/social/" $name ".svg") (dict "width" 25 "height" 25) }}
-                </a>
-                {{ end }}
+                {{ range $name, $item := .Site.Params.socialOptions }}
+                    {{ $parts := split $item.icon " " }}
+                    {{ $vendor := index $parts 0 }}
+                    {{ $icon := delimit (after 1 $parts) " " }}
+                    <a href="{{ $item.url | safeURL }}" target="_blank" rel="noreferrer" title="{{ $name }}"
+                       aria-label="{{ $name }}">
+                        {{ partial "icons/icon" (dict "vendor" $vendor "name" $icon "width" "25" "height" "25" "color" $item.color) }}
+                    </a>
                 {{ end }}
             </div>
         </div>

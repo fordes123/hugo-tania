@@ -1,0 +1,36 @@
+{
+    "name": "hugo-tania",
+    "version": "2.0.0",
+    "description": "",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/fordes123/hugo-tania",
+        "original": "https://github.com/WingLim/hugo-tania"
+    },
+    "author": "fordes123 <github@fordes123.dev>",
+    "license": "MIT",
+    "browserslist": [
+        "last 1 version",
+        "> 1%",
+        "maintained node versions",
+        "not dead"
+    ],
+    "scripts": {
+        "dev": "hugo server -s exampleSite --themesDir=../.. --disableFastRender --bind 0.0.0.0",
+        "build": "hugo --gc --minify --templateMetrics --templateMetricsHints --forceSyncStatic -s exampleSite --themesDir=../..",
+        "postinstall": "hugo mod get -u ./... && hugo mod tidy && hugo mod vendor",
+        "update": "hugo mod get -u ./... && hugo mod tidy && hugo mod vendor"
+    },
+    "dependencies": {
+        "@tailwindcss/aspect-ratio": "^0.4.x",
+        "@tailwindcss/typography": "^0.5.x",
+        "autoprefixer": "^10.4.x",
+        "postcss": "^8.4.x",
+        "postcss-cli": "^11.x"
+    },
+    "devDependencies": {
+        "@netlify/plugin-lighthouse": "^6.0.1",
+        "netlify-plugin-submit-sitemap": "^0.4.0"
+    }
+}

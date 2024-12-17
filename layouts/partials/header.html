@@ -20,8 +20,8 @@
                 {{ end }}
                 {{ if (default true .Site.Params.colorScheme.toggle) }}
                     <button id="dark-mode-button">
-                    {{ (resources.Get "icons/light.svg").Content | safeHTML }}
-                    {{ (resources.Get "icons/dark.svg").Content | safeHTML }}
+                    {{ partial "icons/icon" (dict "vendor" "fas" "name" "circle-half-stroke" "size" "1em" "color" "#ffd983" "className" "light") }}
+                    {{ partial "icons/icon" (dict "vendor" "fas" "name" "sun" "size" "1em" "color" "#ffd983" "className" "dark") }}
                     </button>
                 {{ end }}
             </div>

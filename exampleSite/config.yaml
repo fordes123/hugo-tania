@@ -35,19 +35,16 @@ params:
 
   # Show your socail information with icon on index bio with `_index.md` content.
   socialOptions:
-    dev-to:
-    email:
-    facebook:
     github:
-    instagram:
-    linkedin:
-    medium:
-    stack-overflow:
-    steam:
-    telegram:
-    twitter:
-    twitch:
-    whatsapp:
+      # required The icon vendor and name, e.g. fab github, fas envelope.
+      icon: "fab github" 
+      # required The url of social link.
+      url: "https://dev.to/winglim"
+      # optional The color of icon, e.g. blue, red, #FF438A.
+      color: currentColor 
+    email:
+      icon: "fas envelope"
+      url: "mailto:noreply@example.org"
   
   # Comments settings
   comments:
@@ -55,11 +52,11 @@ params:
     provider: giscus
 
     giscus:
-      repo: WingLim/hugo-tania
-      id: MDEwOlJlcG9zaXRvcnkzMTYyNjQzMDc=
+      repo: fordes123/hugo-tania
+      id: R_kgDONempBw
       category:
         name: Comments
-        id: DIC_kwDOEtnPc84B_WKP
+        id: DIC_kwDONempB84ClSYL
 
 menu:
   header:

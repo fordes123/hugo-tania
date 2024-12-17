@@ -1,4 +1,4 @@
-import Fuse from '../js/fuse'
+import Fuse from '../js/fuse.min.js'
 
 interface searchItem {
     item: {

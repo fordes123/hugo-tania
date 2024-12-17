@@ -5,9 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="theme-color" content="dark">
     <title>{{with.Title}}{{.}} | {{end}}{{.Site.Title}}</title>
-
-    {{ template "_internal/google_analytics.html" . }}
-    {{ template "_internal/google_analytics_async.html" . }}
     
     <meta property="og:site_name" content="{{.Site.Params.siteName}}" />
     <meta property="og:title" content="{{with.Title}}{{.}} | {{end}}{{.Site.Title}}"/>
@@ -43,7 +40,7 @@
     {{ partial "post-meta.html" . }}
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ "favicon.ico" | relURL }}" />
-    {{ $style := resources.Get "sass/main.scss" | toCSS | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+    {{- $styles := resources.Get "sass/main.scss" | resources.ToCSS | resources.PostCSS | minify | fingerprint -}}
+    <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
     {{ partial "head/custom.html" . }}
 </head>
