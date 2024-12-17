@@ -19,7 +19,7 @@ min_version = "0.78.0"
     name = "fordes123"
     homepage = "https://github.com/fordes123"
 
-[original]
+[original.original]
     author = "Tania Rascia"
     homepage = "https://www.taniarascia.com/"
     repo = "https://github.com/taniarascia/taniarascia.com"

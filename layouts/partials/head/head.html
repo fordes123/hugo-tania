@@ -40,7 +40,7 @@
     {{ partial "post-meta.html" . }}
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ "favicon.ico" | relURL }}" />
-    {{- $styles := resources.Get "sass/main.scss" | resources.ToCSS | resources.PostCSS | minify | fingerprint -}}
+    {{- $styles := resources.Get "sass/main.scss" | css.Sass | minify | fingerprint -}}
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
     {{ partial "head/custom.html" . }}
 </head>
