@@ -1,6 +1,6 @@
 [build]
     publish = "hugo-tania/exampleSite/public"
-    command = "mkdir -p hugo-tania; mv ./* hugo-theme-item/; cd hugo-theme-item; yarn; yarn build"
+    command = "mkdir -p hugo-tania; mv ./* hugo-tania/; cd hugo-tania; yarn; yarn build"
 
 [build.environment]
     GO_VERSION = "1.22.0"
