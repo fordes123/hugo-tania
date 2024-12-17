@@ -60,6 +60,12 @@ params:
         name: Comments
         id: DIC_kwDONempB84ClSYL
 
+  # Date format
+  dateFormat:
+    # Default to "Jan 02"
+    archive: "01-02"
+    # Default to "Jan 02, 2006"
+    single: "2006, 01-02"
 menu:
   header:
     - name: Articles

@@ -55,6 +55,13 @@ disqusShortname = "https-hugo-tania-netlify-app"
     enabled = true
     provider = "disqus"
 
+  # Date format
+  [params.dateFormat]
+    # Default to "Jan 02"
+    archive="01-02"
+    # Default to "Jan 02, 2006"
+    single="2006, 01-02"
+
 [menu]
 [[menu.header]]
   name = "Articles"

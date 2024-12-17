@@ -32,7 +32,8 @@
                     <div class="post">
                         <a href="{{ .RelPermalink }}">
                             <div class="post-row">
-                                <time>{{ .Date.Format "Jan 02" }}</time>
+                                {{ $dateFormat := .Site.Params.dateFormat.archive | default "Jan 02" }}
+                                <time>{{ .Date.Format $dateFormat }}</time>
                                 <h3>{{ .Title }}</h3>
                             </div>
                         </a>
