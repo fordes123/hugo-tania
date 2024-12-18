@@ -20,8 +20,8 @@
         color: var(--font-color);
 
         &:hover, &[aria-current='page'] {
-            background: var(--light-background);
-            color: var(--dark-font-color);
+            //background: var(--light-background);
+            color: var(--link-color);
         }
     }
 }
