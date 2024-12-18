@@ -377,3 +377,13 @@ template {
 [hidden] {
     display: none;
 }
+
+/**
+ * hugomods icons inline svg
+ */
+.hi-svg-inline {
+    vertical-align: middle;
+    fill: currentColor;
+    stroke: currentColor;
+    font-size: inherit;
+}
