@@ -44,6 +44,8 @@ params:
       url: "https://github.com/fordes123"
       # optional The color of icon, e.g. blue, red, #FF438A.
       color: currentColor 
+      # optional The weight of the social link, default to 0.
+      weight: 1
     email:
       icon: "fas envelope"
       url: "mailto:noreply@example.org"

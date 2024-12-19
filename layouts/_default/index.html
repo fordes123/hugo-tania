@@ -7,13 +7,13 @@
             {{ . }}
             {{ end }}
             <div class="bio-social">
-                {{ range $name, $item := .Site.Params.socialOptions }}
-                    {{ $parts := split $item.icon " " }}
+                {{ range sort .Site.Params.socialOptions "weight" }}
+                    {{ $parts := split .icon " " }}
                     {{ $vendor := index $parts 0 }}
                     {{ $icon := delimit (after 1 $parts) " " }}
-                    <a href="{{ $item.url | safeURL }}" target="_blank" rel="noreferrer" title="{{ $name }}"
-                       aria-label="{{ $name }}">
-                        {{ partial "icons/icon" (dict "vendor" $vendor "name" $icon "width" "22" "height" "22" "color" $item.color) }}
+                    <a href="{{ .url | safeURL }}" target="_blank" rel="noreferrer" title="{{ .name }}"
+                       aria-label="{{ .name }}">
+                        {{ partial "icons/icon" (dict "vendor" $vendor "name" $icon "width" "22" "height" "22" "color" .color) }}
                     </a>
                 {{ end }}
             </div>
