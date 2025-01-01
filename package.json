@@ -23,8 +23,6 @@
         "update": "hugo mod get -u ./... && hugo mod tidy && hugo mod vendor"
     },
     "dependencies": {
-        "@tailwindcss/aspect-ratio": "^0.4.x",
-        "@tailwindcss/typography": "^0.5.x",
         "autoprefixer": "^10.4.x",
         "postcss": "^8.4.x",
         "postcss-cli": "^11.x"
