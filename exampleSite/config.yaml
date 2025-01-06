@@ -87,6 +87,8 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+    extensions:
+      table: true
 
 outputs:
   home: ["HTML", "RSS", "JSON"]

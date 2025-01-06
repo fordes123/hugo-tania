@@ -79,6 +79,8 @@ disqusShortname = "https-hugo-tania-netlify-app"
   lineNos = true
 [markup.goldmark.renderer]
   unsafe = true
+[markup.goldmark.extensions]
+  table = true
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
