@@ -1,0 +1,31 @@
+<div class="table-wrapper">
+    <table
+        {{- range $k, $v := .Attributes }}
+            {{- if $v }}
+                {{- printf " %s=%q" $k $v | safeHTMLAttr }}
+            {{- end }}
+        {{- end }}>
+        <thead>
+            {{- range .THead }}
+            <tr>
+                {{- range . }}
+                <th scope="col">
+                    {{- .Text -}}
+                </th>
+                {{- end }}
+            </tr>
+            {{- end }}
+        </thead>
+        <tbody>
+            {{- range .TBody }}
+            <tr>
+                {{- range $index, $cell := . }}
+                <td data-label="{{ printf "%s" (index (index $.THead 0) $index).Text }}">
+                    {{- .Text -}}
+                </td>
+                {{- end }}
+            </tr>
+            {{- end }}
+        </tbody>
+    </table>
+</div>
