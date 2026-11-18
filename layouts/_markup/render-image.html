@@ -48,9 +48,11 @@
 {{- end -}}
 {{- with $image -}}
   {{- $suffix := "" -}}
-  {{- if not $remote }}{{ with $u.RawQuery }}{{ $suffix = printf "?%s" . }}{{ end }}{{ end -}}
-  {{- with $u.EscapedFragment }}{{ $suffix = printf "%s#%s" $suffix . }}{{ end -}}
-  {{- $src = printf "%s%s" .RelPermalink $suffix -}}
+  {{- if not $remote -}}
+    {{- with $u.RawQuery }}{{ $suffix = printf "?%s" . }}{{ end -}}
+    {{- with $u.EscapedFragment }}{{ $suffix = printf "%s#%s" $suffix . }}{{ end -}}
+    {{- $src = printf "%s%s" .RelPermalink $suffix -}}
+  {{- end -}}
   {{- if reflect.IsImageResourceWithMeta . -}}
     {{- $metadata := try (slice .Width .Height .FrameCount) -}}
     {{- if $metadata.Err -}}
@@ -66,17 +68,19 @@
         {{- else -}}
           {{- $placeholder = $preview.Value -}}
         {{- end -}}
-        {{- range (slice 480 768 1200) -}}
-          {{- if lt . $width -}}
-            {{- $variant := try ($image.Resize (printf "%dx" .)) -}}
-            {{- if $variant.Err -}}
-              {{- warnf "生成正文响应式图片失败，保留原图：%s（宽度 %d）：%s" $src . $variant.Err -}}
-            {{- else -}}
-              {{- $srcset = $srcset | append (printf "%s%s %dw" $variant.Value.RelPermalink $suffix .) -}}
+        {{- if not $remote -}}
+          {{- range (slice 480 768 1200) -}}
+            {{- if lt . $width -}}
+              {{- $variant := try ($image.Resize (printf "%dx" .)) -}}
+              {{- if $variant.Err -}}
+                {{- warnf "生成正文响应式图片失败，保留原图：%s（宽度 %d）：%s" $src . $variant.Err -}}
+              {{- else -}}
+                {{- $srcset = $srcset | append (printf "%s%s %dw" $variant.Value.RelPermalink $suffix .) -}}
+              {{- end -}}
             {{- end -}}
           {{- end -}}
+          {{- $srcset = $srcset | append (printf "%s %dw" $src $width) -}}
         {{- end -}}
-        {{- $srcset = $srcset | append (printf "%s %dw" $src $width) -}}
       {{- end -}}
     {{- end -}}
   {{- end -}}
