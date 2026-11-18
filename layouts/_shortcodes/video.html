@@ -1,0 +1,31 @@
+{{- if not (and (.Get "src") (.Get "title") (.Get "width") (.Get "height")) -}}
+  {{- errorf "video 短代码必须提供 src、title、width 和 height（%s）" .Position -}}
+{{- else -}}
+  {{- range (slice "width" "height") -}}
+    {{- if not (findRE "^[1-9][0-9]*$" (printf "%v" ($.Get .))) -}}
+      {{- errorf "video 短代码的 %s 必须为正整数，当前值为 %v（%s）" . ($.Get .) $.Position -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $urls := dict -}}
+  {{- range (slice "src" "poster") -}}
+    {{- $name := . -}}
+    {{- with $.Get . -}}
+      {{- $url := . -}}
+      {{- $u := urls.Parse $url -}}
+      {{- if and $u.Scheme (not (in (slice "http" "https") $u.Scheme)) -}}
+        {{- errorf "video 短代码的 %s 只支持 HTTP(S) 或本地路径，当前值为 %q（%s）" $name $url $.Position -}}
+      {{- else if and (not $u.Scheme) (not $u.Host) -}}
+        {{- $resource := or ($.Page.Resources.Get $u.Path) (resources.Get (strings.TrimPrefix "/" $u.Path)) -}}
+        {{- with $resource -}}
+          {{- $url = .RelPermalink -}}
+          {{- with $u.RawQuery }}{{ $url = printf "%s?%s" $url . }}{{ end -}}
+          {{- with $u.EscapedFragment }}{{ $url = printf "%s#%s" $url . }}{{ end -}}
+        {{- else -}}
+          {{- $url = strings.TrimPrefix "/" $url | relURL -}}
+        {{- end -}}
+      {{- end -}}
+      {{- $urls = merge $urls (dict $name $url) -}}
+    {{- end -}}
+  {{- end -}}
+<video controls playsinline loading="lazy" preload="metadata" src="{{ index $urls "src" }}" aria-label="{{ .Get "title" }}" width="{{ .Get "width" }}" height="{{ .Get "height" }}"{{ with index $urls "poster" }} poster="{{ . }}"{{ end }}></video>
+{{- end -}}

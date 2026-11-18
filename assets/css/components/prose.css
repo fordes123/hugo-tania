@@ -132,11 +132,32 @@
 }
 
 .prose :where(video, iframe) {
+  display: block;
   max-inline-size: 100%;
+  margin-block: 0 1.5rem;
+  margin-inline: auto;
+  border-radius: 5px;
+  background: var(--light-background);
 }
 
 .prose :where(video) {
   block-size: auto;
+  object-fit: contain;
+}
+
+.prose :where(iframe) {
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+.prose .video-embed {
+  margin-block: 0 1.5rem;
+}
+
+.prose .video-embed > iframe {
+  margin-block: 0;
 }
 
 .prose :where(img) {
