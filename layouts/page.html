@@ -15,7 +15,7 @@
   <div class="article-layout">
     {{ if and .TableOfContents (gt (len .Fragments.Headings) 0) }}
     <aside class="toc" aria-label="{{ i18n "tableOfContents" }}">
-      <details open><summary>{{ i18n "tableOfContents" }}</summary>{{ .TableOfContents }}</details>
+      <details><summary>{{ i18n "tableOfContents" }}</summary>{{ .TableOfContents }}</details>
     </aside>
     {{ end }}
     <div class="article-post prose">{{ .Content }}</div>

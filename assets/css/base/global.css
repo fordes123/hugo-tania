@@ -38,6 +38,14 @@ img {
   font-size: inherit;
 }
 
+details {
+  padding-inline-start: 1.5rem;
+}
+
+details > summary {
+  margin-inline-start: -1.5rem;
+}
+
 .visually-hidden {
   position: absolute;
   inline-size: 1px;

@@ -27,10 +27,6 @@
 
 .heading-with-anchor {
   display: grid;
-  grid-template-columns: 0 minmax(0, 1fr);
-}
-
-.heading-with-anchor:focus-within {
   grid-template-columns: 20px minmax(0, 1fr);
 }
 
@@ -99,24 +95,11 @@
 
 .heading-anchor-icon {
   vertical-align: middle;
-  visibility: hidden;
-}
-
-.heading-anchor:focus-visible .heading-anchor-icon {
-  visibility: visible;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .prose :where(a):hover {
     text-decoration-color: var(--link-color);
-  }
-
-  .heading-with-anchor:hover {
-    grid-template-columns: 20px minmax(0, 1fr);
-  }
-
-  .heading-with-anchor:hover .heading-anchor-icon {
-    visibility: visible;
   }
 }
 
@@ -286,16 +269,6 @@
   overflow: auto;
   padding-block: 0.25em;
   padding-inline: 0;
-}
-
-@media (any-pointer: coarse) {
-  .heading-with-anchor {
-    grid-template-columns: 20px minmax(0, 1fr);
-  }
-
-  .heading-anchor-icon {
-    visibility: visible;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
