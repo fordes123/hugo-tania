@@ -1,0 +1,6 @@
+{{ if gt .TotalPages 1 }}
+<nav class="pagination" aria-label="{{ i18n "pagination" }}">
+  <div class="prev-page">{{ with .Prev }}<a rel="prev" href="{{ .URL }}">{{ i18n "previousPage" }}</a>{{ end }}</div>
+  <div class="next-page">{{ with .Next }}<a rel="next" href="{{ .URL }}">{{ i18n "nextPage" }}</a>{{ end }}</div>
+</nav>
+{{ end }}

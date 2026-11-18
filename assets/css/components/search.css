@@ -1,0 +1,76 @@
+.search-query {
+  background: var(--light-background);
+  border: 2px solid var(--border);
+  border-radius: 0.35rem;
+  color: var(--font-color);
+  font-size: 1rem;
+  margin-block: 0 4rem;
+  margin-inline: auto;
+  padding-block: 0.8rem;
+  padding-inline: 1rem;
+  inline-size: 100%;
+}
+
+.search-query:focus {
+  border-color: var(--link-color);
+}
+
+.search-status {
+  color: var(--medium-font-color);
+  font-size: 1.05rem;
+  margin-block: 0 1.5rem;
+  margin-inline: 0;
+}
+
+.search-status:empty {
+  display: none;
+}
+
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-block-end: 1.5rem;
+}
+
+.filter-item {
+  background: var(--light-background);
+  border: 0;
+  border-radius: 4px;
+  color: var(--font-color);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-block: 0 0.5rem;
+  margin-inline: 0 0.5rem;
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+  padding-block: 0.5rem;
+  padding-inline: 0.75rem;
+}
+
+.filter-item:last-of-type {
+  margin-inline-end: 0;
+}
+
+.filter-item[aria-pressed='true'] {
+  background: var(--color-button);
+  color: var(--color-button-text);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .filter-item:hover {
+    background: var(--light-background-hover);
+  }
+
+  .filter-item[aria-pressed='true']:hover {
+    background: var(--color-button-hover);
+    color: oklch(100% 0 none);
+  }
+}
+
+/* 宽屏布局 */
+@media screen and (min-width: 800px) {
+  .search-status {
+    font-size: 1.125rem;
+  }
+}

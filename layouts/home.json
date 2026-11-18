@@ -1,0 +1,7 @@
+{{- $items := slice -}}
+{{- range (partial "article-pages.html" .) -}}
+  {{- $categories := slice -}}
+  {{- range .GetTerms "categories" }}{{ $categories = $categories | append .LinkTitle }}{{ end -}}
+  {{- $items = $items | append (dict "title" .Title "tags" (.Params.tags | default slice) "categories" $categories "contents" .Plain "permalink" .RelPermalink "date" (.Date.Format (site.Params.dateFormat.archive | default "Jan 02")) "dateTime" (.Date.Format "2006-01-02")) -}}
+{{- end -}}
+{{- $items | jsonify -}}

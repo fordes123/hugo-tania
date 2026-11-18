@@ -1,0 +1,207 @@
+/* 内容区与文章布局 */
+.content-section {
+  margin-block: 2rem;
+  margin-inline: 0;
+}
+
+.content-section:first-of-type {
+  margin-block-start: 0;
+}
+
+.content-section > h2 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  color: var(--heading-color);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-block: 0 0.5rem;
+  margin-inline: 0;
+  padding-block-end: 0.5rem;
+}
+
+.section-button {
+  background: var(--light-background);
+  color: var(--dark-font-color);
+  border-radius: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1;
+  margin-block: 0.5rem 0;
+  margin-inline: 1.5rem 0;
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+  padding-block: 0.4rem;
+  padding-inline: 0.6rem;
+}
+
+.article-layout {
+  display: grid;
+  grid-template-columns: minmax(1.5rem, 1fr) minmax(0, 782px) minmax(
+      1.5rem,
+      1fr
+    );
+  row-gap: 1rem;
+}
+
+.article-post {
+  align-self: start;
+  grid-column: 2;
+  min-inline-size: 0;
+  margin-block-end: 2rem;
+}
+
+@media screen and (min-width: 1281px) {
+  .article-post {
+    grid-row: 1;
+  }
+}
+
+/* 页面标题 */
+.page-header {
+  padding-block: 1.5rem;
+  padding-inline: 0;
+}
+
+.page-header h1,
+.article-header h1 {
+  color: var(--h1-color);
+  display: inline-block;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-block: 1rem 1.5rem;
+  margin-inline: 0;
+}
+
+p.subtitle {
+  color: var(--medium-font-color);
+  font-size: 1.3rem;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* 首页简介 */
+.home-intro {
+  padding-block-start: 2rem;
+}
+
+.bio-social a {
+  border: 0;
+  margin-inline-end: 1rem;
+}
+
+/* 页脚 */
+.footer {
+  padding-block: 2rem;
+  padding-inline: 0;
+}
+
+.footer > .container {
+  margin-block-end: 2rem;
+}
+
+.footer img {
+  block-size: 30px;
+  inline-size: 30px;
+}
+
+.footer a {
+  border: 1px solid transparent;
+  border-radius: 0.35rem;
+  color: var(--light-font-color);
+  font-size: 1rem;
+  font-weight: 400;
+  margin-block: 0;
+  margin-inline: 0.5rem;
+  padding: 0.5rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .section-button:hover {
+    background: var(--light-background-hover);
+    color: var(--heading-color);
+  }
+
+  .footer a:hover {
+    background: var(--light-background);
+    color: var(--heading-color);
+  }
+}
+
+.footer a.img {
+  align-items: center;
+  background: none;
+  display: flex;
+  margin-block: 0;
+  margin-inline: 0.75rem;
+  padding: 0;
+}
+
+.footer-links {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-block: 1rem;
+  padding-inline: 0;
+}
+
+@media print {
+  .footer {
+    display: none;
+  }
+}
+
+/* 宽屏布局 */
+@media screen and (min-width: 800px) {
+  .content-section {
+    margin-block: 3.5rem;
+    margin-inline: 0;
+  }
+
+  .content-section > h2 {
+    font-size: 2rem;
+    margin-block: 0 1rem;
+    margin-inline: 0;
+    border-block-end: 4px solid var(--light-background);
+  }
+
+  .article-layout {
+    grid-template-columns: minmax(2rem, 1fr) minmax(0, 766px) minmax(2rem, 1fr);
+  }
+
+  .article-post {
+    margin-block-end: 3rem;
+  }
+
+  .article-post :is(h1, h2, h3, h4, h5, h6) {
+    padding-block-start: 1rem;
+  }
+
+  .page-header h1 {
+    font-size: 3rem;
+    margin-block-start: 2rem;
+  }
+
+  p.subtitle {
+    font-size: 1.5rem;
+  }
+
+  .footer a {
+    padding: 0.75rem;
+  }
+
+  .footer a.img {
+    margin-block: 0;
+    margin-inline: 1rem;
+    padding-block: 0;
+    padding-inline: 0.5rem;
+  }
+}

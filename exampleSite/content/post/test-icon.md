@@ -8,28 +8,33 @@ categories:
 ---
 
 We have imported the [Font Awesome](https://fontawesome.com/) module from [hugomods/icons](https://github.com/hugomods/icons) by default,
-so you can use them directly in Markdown through shortcodes.
+so you can use them directly in Markdown through the `ico` shortcode. The first argument selects the icon style:
+`fab` for brands, `fas` for solid icons, and `far` for regular icons.
 
-For example, the following code adds a {{< icons/icon vendor=fab name=github >}} icon
+For example, the following code adds a {{< ico fab github >}} icon:
 ```markdown
-{{</* icons/icon vendor=fab name=github */>}}
+{{</* ico fab github */>}}
 ```
 
-Through some built-in parameters, you can easily adjust the size, color, and other properties of the icon.
-
-For example: {{< icons/icon vendor=fab name=github size=3em color=red >}}
+To change the size, add a third argument: {{< ico fab github 3em >}}
 
 ```markdown
-{{</* icons/icon vendor=fab name=github size=3em color=red */>}}
+{{</* ico fab github 3em */>}}
+```
+
+To set the color or other properties, use named parameters: {{< ico vendor=fab name=github size=3em color=red >}}
+
+```markdown
+{{</* ico vendor=fab name=github size=3em color=red */>}}
 ```
 
 You can find the icons you need in [Font Awesome](https://fontawesome.com/icons).
-For more information about icon usage, please refer to the [hugomods/icons](https://icons.hugomods.com/docs/usages/) documentation.
+The existing `icons/icon` shortcode is still available. For more information about icon usage, please refer to the [hugomods/icons](https://icons.hugomods.com/docs/usages/) documentation.
 
 ---
 <br>
 
-You can add more icon libraries supported by hugomods icons by editing `hugo.yaml` in the theme root directory:
+You can add more icon libraries supported by hugomods icons to the module imports in your site's `hugo.yaml`:
 
 ```yaml
 module:
@@ -39,8 +44,8 @@ module:
     - path: github.com/hugomods/icons/vendors/lucide
 ```
 
-After editing, run the `yarn update` command (you may also need to manually clear the `_vendor` folder),
-then you can use these icons in your Markdown content.
+After editing, run `hugo mod get github.com/hugomods/icons/vendors/bootstrap github.com/hugomods/icons/vendors/lucide`
+to add the modules to your site's dependencies. The theme continues to provide Font Awesome.
 
 
 

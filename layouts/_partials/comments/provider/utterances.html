@@ -1,0 +1,23 @@
+{{ $config := site.Params.comments.utterances }}
+{{ if not $config.repo }}{{ errorf "utterances 评论需要配置 repo" }}{{ end }}
+<script>
+  (() => {
+    const script = document.createElement('script');
+    script.src = 'https://utteranc.es/client.js';
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    script.setAttribute('repo', {{ $config.repo }});
+    script.setAttribute('issue-term', {{ $config.issueTerm | default "pathname" }});
+    {{ with $config.label }}script.setAttribute('label', {{ . }});{{ end }}
+    script.setAttribute('theme', 'github-' + document.documentElement.dataset.userColorScheme);
+    document.currentScript.after(script);
+    function sync(theme) {
+      const frame = document.querySelector('.utterances iframe');
+      if (frame) frame.contentWindow.postMessage({type: 'set-theme', theme: 'github-' + theme}, 'https://utteranc.es');
+    }
+    window.addEventListener('message', event => {
+      if (event.origin === 'https://utteranc.es') sync(document.documentElement.dataset.userColorScheme);
+    });
+    window.addEventListener('onColorSchemeChange', event => sync(event.detail));
+  })();
+</script>

@@ -1,0 +1,7 @@
+{{- $format := site.Params.dateFormat.archive | default "Jan 02" -}}
+<div class="post">
+  <a class="post-row" href="{{ .RelPermalink }}">
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format $format }}</time>
+    <h3>{{ .LinkTitle }}</h3>
+  </a>
+</div>

@@ -1,3 +1,33 @@
 module:
+  hugoVersion:
+    min: "0.170.1"
   imports:
     - path: github.com/hugomods/icons/vendors/font-awesome
+
+params:
+  enableFootnotes: true
+  imagePlaceholder:
+    width: 64
+    quality: 50
+  colorScheme:
+    toggle: true
+    default: auto
+
+outputs:
+  home: [HTML, RSS, JSON]
+
+markup:
+  goldmark:
+    parser:
+      attribute:
+        block: true
+      wrapStandAloneImageWithinParagraph: false
+    extensions:
+      passthrough:
+        enable: true
+        delimiters:
+          block:
+            - ['\[', '\]']
+            - ['$$', '$$']
+          inline:
+            - ['\(', '\)']

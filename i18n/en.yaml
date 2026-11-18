@@ -1,0 +1,44 @@
+skipContent: Skip to content
+mainNavigation: Main navigation
+footerNavigation: Footer navigation
+toggleTheme: Change color scheme
+themeAuto: "Color scheme: Auto"
+themeLight: "Color scheme: Light"
+themeDark: "Color scheme: Dark"
+sideNotes: Side notes
+tableRegion: Table
+mathRegion: Mathematical formula
+codeRegion: Code block
+latestArticles: Latest Articles
+viewAll: View all
+projects: Projects
+source: Source
+pagination: Pagination
+previousPage: Previous page
+nextPage: Next page
+postsFound:
+  one: "{{ .Count }} post"
+  other: "{{ .Count }} posts"
+by: By
+readingTime:
+  one: "{{ .Count }} minute read"
+  other: "{{ .Count }} minutes read"
+tableOfContents: Table of contents
+postNavigation: Post navigation
+previous: Previous
+next: Next
+categories: Filter by category
+searchLabel: Search articles
+searchPlaceholder: Search articles
+searchLoading: Loading search index…
+searchError: Search could not be loaded. Change the query to retry.
+searchEmpty: No matching articles.
+searchResults: "{count} results"
+copy: Copy
+copied: Copied!
+copyFailed: Copy failed
+imageError: Image failed to load
+notFound: The page could not be found.
+goHome: Go to home
+linkToHeading: Link to heading
+comments: Comments

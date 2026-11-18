@@ -1,4 +1,4 @@
-module github.com/fordes123/hugo-tania
+module github.com/fordes123/hugo-tania/v3
 
 go 1.20
 

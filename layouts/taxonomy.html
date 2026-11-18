@@ -1,0 +1,9 @@
+{{ define "main" }}
+<div class="container">
+  <header class="page-header"><h1>{{ .Title }}</h1></header>
+  {{ with .Content }}<div class="content prose">{{ . }}</div>{{ end }}
+  <div class="terms">
+    {{ range .Pages.ByTitle }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }} <span class="bg-number">{{ len .Pages }}</span></a>{{ end }}
+  </div>
+</div>
+{{ end }}

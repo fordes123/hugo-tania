@@ -1,0 +1,6 @@
+<div class="table-wrapper" role="region" aria-label="{{ i18n "tableRegion" }}" tabindex="0">
+  <table class="content-table">
+    <thead class="table-head">{{ range .THead }}<tr>{{ range . }}<th class="table-cell" scope="col">{{ .Text }}</th>{{ end }}</tr>{{ end }}</thead>
+    <tbody>{{ range .TBody }}<tr class="table-row">{{ range $index, $cell := . }}{{ $label := (index (index $.THead 0) $index).Text | plainify }}<td class="table-cell"><span class="table-cell-label" aria-hidden="true">{{ $label }}</span><span class="table-cell-value">{{ .Text }}</span></td>{{ end }}</tr>{{ end }}</tbody>
+  </table>
+</div>

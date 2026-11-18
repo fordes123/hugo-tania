@@ -1,21 +1,8 @@
 {
-  "builds": [
-    {
-      "src": "vercel-build.sh",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "hugo-tania/exampleSite/public"
-      }
-    }
-  ],
+  "buildCommand": "bash vercel-build.sh",
+  "outputDirectory": "exampleSite/public",
   "routes": [
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "status": 404,
-      "dest": "/404.html"
-    }
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "status": 404, "dest": "/404.html" }
   ]
 }

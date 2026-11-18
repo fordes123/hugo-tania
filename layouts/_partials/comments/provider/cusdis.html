@@ -1,0 +1,11 @@
+{{ $config := site.Params.comments.cusdis }}
+{{ if not $config.id }}{{ errorf "cusdis 评论需要配置 id" }}{{ end }}
+{{ $host := $config.host | default "https://cusdis.com" }}
+<div id="cusdis_thread" class="cusdis" data-host="{{ $host }}" data-app-id="{{ $config.id }}"
+  data-page-id="{{ .File.UniqueID }}" data-page-url="{{ .Permalink }}" data-page-title="{{ .Title }}"></div>
+<script async defer src="{{ printf "%s/js/cusdis.es.js" (strings.TrimSuffix "/" $host) }}"></script>
+<script>
+  window.addEventListener('onColorSchemeChange', event => {
+    if (window.CUSDIS && document.querySelector('#cusdis_thread iframe')) window.CUSDIS.setTheme(event.detail);
+  });
+</script>

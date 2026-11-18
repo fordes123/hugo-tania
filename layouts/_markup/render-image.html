@@ -1,0 +1,92 @@
+{{- $u := urls.Parse .Destination -}}
+{{- $image := false -}}
+{{- $src := .Destination -}}
+{{- $width := 0 -}}
+{{- $height := 0 -}}
+{{- $srcset := slice -}}
+{{- $placeholder := "" -}}
+{{- $hasPreview := false -}}
+{{- $placeholderWidth := site.Params.imagePlaceholder.width -}}
+{{- $placeholderQuality := site.Params.imagePlaceholder.quality -}}
+{{- if not (findRE "^[1-9][0-9]*$" (printf "%v" $placeholderWidth)) -}}
+  {{- errorf "params.imagePlaceholder.width 必须为正整数，当前值为 %v" $placeholderWidth -}}
+{{- end -}}
+{{- if not (findRE "^([1-9][0-9]?|100)$" (printf "%v" $placeholderQuality)) -}}
+  {{- errorf "params.imagePlaceholder.quality 必须为 1 至 100 的整数，当前值为 %v" $placeholderQuality -}}
+{{- end -}}
+{{- $remote := or (in (slice "http" "https") $u.Scheme) (and (not $u.Scheme) $u.Host) -}}
+{{- $priority := .Attributes.fetchpriority | default "auto" -}}
+{{- if not (in (slice "auto" "high" "low") $priority) -}}
+  {{- errorf "无效的图片 fetchpriority %q（%s）；可用值为 auto、high、low" $priority .Position -}}
+{{- end -}}
+{{- if $remote -}}
+  {{- $url := .Destination -}}
+  {{- if not $u.Scheme }}{{ $url = printf "https:%s" $url }}{{ end -}}
+  {{- $result := try (resources.GetRemote $url (dict "timeout" "30s")) -}}
+  {{- if or $result.Err (not $result.Value) -}}
+    {{- warnf "获取远程正文图片失败，正在重试：%s（%s）：%v" $url .Position $result.Err -}}
+    {{- $result = try (resources.GetRemote $url (dict "timeout" "30s")) -}}
+  {{- end -}}
+  {{- if $result.Err -}}
+    {{- warnf "获取远程正文图片失败，使用 CSS 渐变占位并保留原始 URL：%s（%s）：%s" $url .Position $result.Err -}}
+    {{- $hasPreview = true -}}
+  {{- else if not $result.Value -}}
+    {{- warnf "远程正文图片不存在（HTTP 404），使用 CSS 渐变占位并保留原始 URL：%s（%s）" $url .Position -}}
+    {{- $hasPreview = true -}}
+  {{- else -}}
+    {{- $image = $result.Value -}}
+    {{- if not (reflect.IsImageResource $image) -}}
+      {{- warnf "远程正文资源不是图片，使用 CSS 渐变占位并保留原始 URL：%s（%s），媒体类型为 %s" $url .Position $image.MediaType.Type -}}
+      {{- $image = false -}}
+      {{- $hasPreview = true -}}
+    {{- end -}}
+  {{- end -}}
+{{- else if and (not $u.IsAbs) (not $u.Host) -}}
+  {{- $image = .PageInner.Resources.GetMatch $u.Path -}}
+  {{- if not $image }}{{ $image = resources.Get (strings.TrimPrefix "/" $u.Path) }}{{ end -}}
+  {{- if not $image }}{{ $src = strings.TrimPrefix "/" .Destination | relURL }}{{ end -}}
+{{- end -}}
+{{- with $image -}}
+  {{- $suffix := "" -}}
+  {{- if not $remote }}{{ with $u.RawQuery }}{{ $suffix = printf "?%s" . }}{{ end }}{{ end -}}
+  {{- with $u.EscapedFragment }}{{ $suffix = printf "%s#%s" $suffix . }}{{ end -}}
+  {{- $src = printf "%s%s" .RelPermalink $suffix -}}
+  {{- if reflect.IsImageResourceWithMeta . -}}
+    {{- $metadata := try (slice .Width .Height .FrameCount) -}}
+    {{- if $metadata.Err -}}
+      {{- warnf "读取正文图片尺寸失败，使用 CSS 渐变占位：%s：%s" $src $metadata.Err -}}
+      {{- $hasPreview = true -}}
+    {{- else -}}
+      {{- $width = index $metadata.Value 0 -}}{{- $height = index $metadata.Value 1 -}}
+      {{- if and (reflect.IsImageResourceProcessable .) (in (slice "image/jpeg" "image/png" "image/webp" "image/avif") .MediaType.Type) (eq (index $metadata.Value 2) 1) -}}
+        {{- $hasPreview = true -}}
+        {{- $preview := try (printf "data:image/webp;base64,%s" ((.Resize (printf "%dx webp q%d lossy" (int $placeholderWidth) (int $placeholderQuality))).Content | encoding.Base64Encode)) -}}
+        {{- if $preview.Err -}}
+          {{- warnf "生成正文 LQIP 失败，使用 CSS 渐变占位：%s：%s" $src $preview.Err -}}
+        {{- else -}}
+          {{- $placeholder = $preview.Value -}}
+        {{- end -}}
+        {{- range (slice 480 768 1200) -}}
+          {{- if lt . $width -}}
+            {{- $variant := try ($image.Resize (printf "%dx" .)) -}}
+            {{- if $variant.Err -}}
+              {{- warnf "生成正文响应式图片失败，保留原图：%s（宽度 %d）：%s" $src . $variant.Err -}}
+            {{- else -}}
+              {{- $srcset = $srcset | append (printf "%s%s %dw" $variant.Value.RelPermalink $suffix .) -}}
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+        {{- $srcset = $srcset | append (printf "%s %dw" $src $width) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $displayWidth := "100%" -}}
+{{- $ratio := "3 / 2" -}}
+{{- if $width -}}
+  {{- $displayWidth = printf "%dpx" $width -}}
+  {{- $ratio = printf "%d / %d" $width $height -}}
+{{- end -}}
+{{- $style := printf "inline-size: min(100%%, %s); aspect-ratio: %s;" $displayWidth $ratio -}}
+{{- with $placeholder }}{{ $style = printf "--lqip: url('%s'); --lqip-filter: none; --lqip-inset: 0; %s" . $style }}{{ end -}}
+{{ if .IsBlock }}<p>{{ end }}{{ if $hasPreview }}<span class="lqip{{ if .IsBlock }} block-image{{ end }}" data-lqip data-error="{{ i18n "imageError" }}" style="{{ $style | safe.CSS }}">{{ end }}<img{{ if and .IsBlock (not $hasPreview) }} class="block-image"{{ end }} src="{{ $src }}" alt="{{ .PlainText }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $width }} width="{{ $width }}" height="{{ $height }}"{{ end }}{{ if gt (len $srcset) 1 }} srcset="{{ delimit $srcset ", " }}" sizes="(min-width: 1100px) 800px, calc(100vw - 3rem)"{{ end }}{{ if eq $priority "high" }} loading="eager"{{ else }} loading="lazy"{{ end }}{{ if ne $priority "auto" }} fetchpriority="{{ $priority }}"{{ end }} decoding="async">{{ if $hasPreview }}</span>{{ end }}{{ if .IsBlock }}</p>{{ end }}

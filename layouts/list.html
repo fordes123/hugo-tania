@@ -1,0 +1,9 @@
+{{ define "main" }}
+{{ $paginator := .Paginate .Pages }}
+<div class="container">
+  <header class="page-header"><h1>{{ .Title }}</h1><p class="subtitle">{{ i18n "postsFound" (len .Pages) }}</p></header>
+  {{ with .Content }}<div class="content prose">{{ . }}</div>{{ end }}
+  <div class="posts">{{ range $paginator.Pages }}{{ partial "article-row.html" . }}{{ end }}</div>
+  {{ partial "pagination.html" $paginator }}
+</div>
+{{ end }}

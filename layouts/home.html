@@ -1,0 +1,43 @@
+{{ define "main" }}
+<div class="container">
+  <section class="home-intro content-section">
+    <div class="content">
+      {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+      <div class="bio-social">
+        {{ $socials := slice }}
+        {{ range $key, $social := site.Params.socialOptions }}{{ $socials = $socials | append (merge $social (dict "key" $key)) }}{{ end }}
+        {{ range $social := sort $socials "weight" }}
+          {{ $parts := split $social.icon " " }}
+          {{ if lt (len $parts) 2 }}{{ errorf "socialOptions.%s.icon 必须包含图标供应商和名称" $social.key }}{{ end }}
+          <a href="{{ $social.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $social.key | humanize }}">
+            {{ partial "icons/icon" (dict "vendor" (index $parts 0) "name" (delimit (after 1 $parts) " ") "width" "22" "height" "22" "color" ($social.color | default "currentColor")) }}
+          </a>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+  {{ $pages := partial "article-pages.html" . }}
+  {{ $paginator := .Paginate $pages }}
+  <section class="content-section">
+    <h2>{{ i18n "latestArticles" }}{{ range first 1 (where site.RegularPages "Layout" "archives") }}<a class="section-button" href="{{ .RelPermalink }}">{{ i18n "viewAll" }}</a>{{ end }}</h2>
+    <div class="posts">{{ range $paginator.Pages }}{{ partial "article-row.html" . }}{{ end }}</div>
+  </section>
+  {{ $projects := where site.RegularPages "Section" "projects" }}
+  {{ with $projects }}
+  <section class="content-section">
+    <h2>{{ i18n "projects" }}</h2>
+    <div class="projects">
+      {{ range .ByWeight }}
+      <article class="project">
+        <div>
+          <a href="{{ .Params.link }}" target="_blank" rel="noopener noreferrer"><span class="icon" aria-hidden="true">{{ .Params.icon }}</span><h3>{{ .Title }}</h3></a>
+          <div class="description">{{ .Description }}</div>
+        </div>
+        <div class="flex">{{ with .Params.repo }}<a class="button" href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ i18n "source" }}</a>{{ end }}</div>
+      </article>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+</div>
+{{ end }}

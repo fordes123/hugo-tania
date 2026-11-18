@@ -1,0 +1,6 @@
+<div class="disqus-container">{{ template "_internal/disqus.html" . }}</div>
+<script>
+  window.addEventListener('onColorSchemeChange', () => {
+    if (window.DISQUS) window.DISQUS.reset({ reload: true });
+  });
+</script>

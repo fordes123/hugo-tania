@@ -1,0 +1,40 @@
+skipContent: 跳转到正文
+mainNavigation: 主导航
+footerNavigation: 页脚导航
+toggleTheme: 切换配色模式
+themeAuto: 配色模式：跟随系统
+themeLight: 配色模式：浅色
+themeDark: 配色模式：深色
+sideNotes: 旁注
+tableRegion: 表格
+mathRegion: 数学公式
+codeRegion: 代码块
+latestArticles: 最新文章
+viewAll: 查看全部
+projects: 项目
+source: 源代码
+pagination: 分页
+previousPage: 上一页
+nextPage: 下一页
+postsFound: "{{ .Count }} 篇文章"
+by: 作者
+readingTime: "阅读约 {{ .Count }} 分钟"
+tableOfContents: 目录
+postNavigation: 文章导航
+previous: 上一篇
+next: 下一篇
+categories: 按分类筛选
+searchLabel: 搜索文章
+searchPlaceholder: 搜索文章
+searchLoading: 正在加载搜索索引…
+searchError: 搜索索引加载失败，请修改搜索内容后重试。
+searchEmpty: 没有找到匹配的文章。
+searchResults: "找到 {count} 篇文章"
+copy: 复制
+copied: 已复制！
+copyFailed: 复制失败
+imageError: 图片加载失败
+notFound: 找不到该页面。
+goHome: 返回首页
+linkToHeading: 标题链接
+comments: 评论

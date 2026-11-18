@@ -1,12 +1,13 @@
-baseurl: "https://example.com"
-languageCode: "en-us"
-title: "Hugo Tania"
-theme: "hugo-tania"
+baseURL: https://example.com/
+locale: en-US
+title: Hugo Tania
+
+module:
+  imports:
+    - path: github.com/fordes123/hugo-tania/v3
 
 pagination:
   pagerSize: 6
-
-disqusShortname: https-hugo-tania-netlify-app
 
 params:
   # Emoji will show before the blog title on site navbar.
@@ -18,6 +19,13 @@ params:
   # Enable float footnotes.
   # Default to true
   enableFootnotes: true
+
+  # Inline placeholders for article images. Larger values increase HTML size.
+  imagePlaceholder:
+    # Preview width in pixels; must be a positive integer.
+    width: 64
+    # WebP quality from 1 to 100.
+    quality: 50
   
   siteName: "Hugo Tania is Amazing"
   siteDesc: "Hugo is Absurdly Fast!"
@@ -85,10 +93,21 @@ markup:
     noClasses: false
     lineNos: true
   goldmark:
+    parser:
+      attribute:
+        block: true
+      wrapStandAloneImageWithinParagraph: false
     renderer:
       unsafe: true
     extensions:
-      table: true
+      passthrough:
+        enable: true
+        delimiters:
+          block:
+            - ['\[', '\]']
+            - ['$$', '$$']
+          inline:
+            - ['\(', '\)']
 
 outputs:
-  home: ["HTML", "RSS", "JSON"]
+  home: [HTML, RSS, JSON]

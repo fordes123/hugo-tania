@@ -1,0 +1,203 @@
+/* 代码块与复制按钮 */
+.prose :where(:not(pre) > code) {
+  background: var(--light-background);
+  border-radius: 4px;
+  color: var(--dark-font-color);
+  font-family: var(--code-font-family);
+  font-size: 0.9em;
+  padding-block: 3px;
+  padding-inline: 5px;
+}
+
+.prose :where(h1, h2, h3, h4, h5, h6) code {
+  font-size: 0.95em;
+}
+
+.prose :where(pre),
+.chroma {
+  background: oklch(35.08223% 0.011767 258.3679);
+  border-radius: 5px;
+  margin-block: 0 2rem;
+  margin-inline: 0;
+  max-inline-size: 100%;
+  overflow-x: auto;
+}
+
+.prose :where(pre) {
+  color: oklch(97.74766% 0.007913 106.545);
+  font: 0.85em/1.75 var(--code-font-family);
+  padding: 1rem;
+}
+
+.prose :where(pre > code) {
+  display: block;
+  font: inherit;
+  color: inherit;
+}
+
+.highlight {
+  position: relative;
+}
+
+.chroma {
+  box-shadow: 1px 1px 2px oklch(0% 0 none / 0.125);
+  position: relative;
+}
+
+.chroma:where(pre),
+.chroma pre {
+  padding-block: 2.75rem 0.625rem;
+  padding-inline: 0.625rem;
+}
+
+.chroma pre {
+  margin: 0;
+  max-inline-size: none;
+  overflow: visible;
+}
+
+.chroma code[data-lang]::before {
+  background: oklch(31.97038% 0.008249 255.557);
+  color: oklch(76.03929% 0 none);
+  content: attr(data-lang);
+  font-size: 0.9rem;
+  font-weight: bold;
+  block-size: 2rem;
+  inset-inline-start: 0;
+  line-height: 1.75;
+  overflow: clip;
+  padding-block: 0.125rem;
+  padding-inline: 0.625rem 5rem;
+  position: absolute;
+  inset-inline-end: 0;
+  text-overflow: ellipsis;
+  inset-block-start: 0;
+  white-space: nowrap;
+}
+
+.chroma :is(table, tr, td) {
+  border: 0;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+}
+
+.chroma table {
+  position: relative;
+  inline-size: 100%;
+}
+
+.chroma .lntd:first-child {
+  inline-size: 10px;
+}
+
+.chroma .lntd:first-child pre {
+  padding-block: 2.75rem 0.625rem;
+  padding-inline: 0.4375rem;
+}
+
+.chroma .lntd:last-child {
+  vertical-align: top;
+}
+
+.copy-code-button {
+  background: oklch(37.90936% 0 none);
+  border: 0;
+  border-radius: 4px;
+  color: oklch(100% 0 none);
+  cursor: pointer;
+  font-size: 0.8rem;
+  opacity: 0;
+  padding-block: 4px;
+  padding-inline: 10px;
+  pointer-events: none;
+  position: absolute;
+  inset-inline-end: 5px;
+  inset-block-start: 2px;
+  transition: opacity 0.3s var(--ease-out);
+}
+
+.copy-code-button:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .highlight:hover .copy-code-button {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media (any-pointer: coarse) {
+  .copy-code-button {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copy-code-button {
+    transition: none;
+  }
+}
+
+/* 语法高亮 */
+.chroma .hl {
+  background: oklch(0% 0 none);
+  display: block;
+  inline-size: 100%;
+}
+
+.chroma :is(.lnt, .ln) {
+  color: oklch(72.19329% 0 none);
+}
+
+.chroma .ln {
+  padding-block: 0;
+  padding-inline: 0.4em;
+}
+
+.chroma :is(.c, .cm, .cp, .c1, .cs, .gp, .sd) {
+  color: oklch(73.80187% 0 none);
+}
+
+.chroma :is(.err, .gd, .no, .ne, .nv, .vc, .vg, .vi) {
+  color: oklch(74.83087% 0.143749 19.5266);
+}
+
+.chroma :is(.k, .kc, .kd, .kp, .kr) {
+  color: oklch(74.74908% 0.0914 326.4433);
+}
+
+.chroma :is(.l, .m, .mf, .mh, .mi, .mo, .se, .si, .il) {
+  color: oklch(75.62184% 0.145531 48.4967);
+}
+
+.chroma :is(.n, .p, .gh, .nb, .ni, .nl, .py, .w, .sc, .bp) {
+  color: oklch(84.52223% 0 none);
+}
+
+.chroma :is(.o, .gu, .kn, .nd, .nt, .ow) {
+  color: oklch(78.45275% 0.095177 195.3873);
+}
+
+.chroma :is(.gi, .ld, .s, .sb, .s2, .sh, .sx, .sr, .s1, .ss) {
+  color: oklch(79.60088% 0.088882 144.6835);
+}
+
+.chroma :is(.kt, .nc, .nn) {
+  color: oklch(87.06775% 0.132524 82.7366);
+}
+
+.chroma :is(.na, .nf, .nx) {
+  color: oklch(76.61108% 0.078469 247.7381);
+}
+
+.chroma .ge {
+  font-style: italic;
+}
+
+.chroma :is(.gh, .gp, .gs, .gu) {
+  font-weight: bold;
+}

@@ -1,0 +1,85 @@
+.table-wrapper {
+  max-inline-size: 100%;
+  overflow-x: auto;
+  inline-size: 100%;
+}
+
+.content-table {
+  border: 1px solid var(--border);
+  border-collapse: separate;
+  border-spacing: 0;
+  max-inline-size: 100%;
+  inline-size: 100%;
+}
+
+.table-cell {
+  border-block-end: 1px solid var(--border);
+  hyphens: auto;
+  overflow-wrap: anywhere;
+  padding: 0.75rem;
+  text-align: start;
+}
+
+.table-cell[scope='col'] {
+  letter-spacing: 0.1em;
+}
+
+.table-row:nth-child(even) {
+  background: var(--light-background);
+}
+
+.table-cell-label {
+  display: none;
+}
+
+.table-cell-value {
+  display: block;
+  min-inline-size: 0;
+}
+
+.table-cell :where(pre) {
+  text-align: start;
+}
+
+@media screen and (max-width: 600px) {
+  .content-table {
+    border: 0;
+  }
+
+  .table-head {
+    clip-path: inset(50%);
+    block-size: 1px;
+    overflow: clip;
+    position: absolute;
+    inline-size: 1px;
+  }
+
+  .table-row {
+    border: 1px solid var(--border);
+    display: block;
+    margin-block-end: 1.25em;
+  }
+
+  .table-row > .table-cell {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    font-size: 0.8em;
+    text-align: end;
+  }
+
+  .table-cell-label {
+    display: block;
+    font-weight: bold;
+    min-inline-size: 0;
+    text-align: start;
+  }
+
+  .table-row > .table-cell:last-child {
+    border-block-end: 0;
+  }
+
+  .table-row:nth-child(even) {
+    background: transparent;
+  }
+}

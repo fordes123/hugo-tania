@@ -1,0 +1,168 @@
+/* 文章标题与元信息 */
+.article-header {
+  padding-block-start: 2rem;
+  padding-block-end: 1.5rem;
+  margin-block-end: 0.5rem;
+}
+
+.article-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.post-meta {
+  color: var(--light-font-color);
+  font-size: 0.9rem;
+  margin-block-start: 1rem;
+}
+
+.post-meta a {
+  color: var(--font-color);
+}
+
+.post-meta .tags {
+  margin-block-start: 0.5rem;
+}
+
+/* 评论 */
+.comments :where(.disqus-container, .cusdis, .giscus) {
+  padding-block-start: 2rem;
+}
+
+.utterances {
+  margin-inline-start: -4px;
+  margin-inline-end: -4px;
+}
+
+@media print {
+  .comments {
+    display: none;
+  }
+}
+
+/* 脚注与侧注 */
+.prose :is(.footnote-ref, .footnote-backref) {
+  text-decoration: none;
+}
+
+.bg-number {
+  background: var(--light-background);
+  border-radius: 5px;
+  color: var(--font-color);
+  font-size: 0.9rem;
+  padding-block: 1px;
+  padding-inline: 5px;
+  text-decoration: none;
+}
+
+.side-notes {
+  display: none;
+}
+
+.side-note {
+  font-size: 0.9rem;
+}
+
+.side-note p {
+  margin: 0;
+}
+
+.side-note p + p {
+  margin-block-start: 0.5rem;
+}
+
+@media screen and (min-width: 1281px) {
+  .side-notes {
+    display: block;
+    grid-column: 3;
+    grid-row: 1;
+    margin-inline-start: 2rem;
+    position: relative;
+    inline-size: min(200px, calc(100% - 2rem));
+  }
+
+  .side-note {
+    background: var(--background);
+    inset-inline-start: 0;
+    position: absolute;
+    inline-size: 100%;
+  }
+}
+
+/* 相邻文章 */
+.suggested {
+  flex-direction: column;
+  align-items: stretch;
+  margin-inline-start: -1rem;
+  margin-inline-end: -1rem;
+  padding: 0;
+}
+
+.suggested span {
+  font-weight: 400;
+  display: block;
+  font-size: 0.9rem;
+  color: var(--transparent-text);
+}
+
+.suggested a {
+  margin-block: 0.5rem;
+  margin-inline: 1rem;
+  border-block-end: none;
+  padding: 1.5rem;
+  border-radius: 0.35rem;
+  background: var(--light-background);
+  color: var(--heading-color);
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .suggested a:hover {
+    background: var(--light-background-hover);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .suggested a {
+    transition:
+      background-color 0.2s var(--ease-out),
+      transform 0.2s var(--ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .suggested a:hover {
+      transform: translateY(-1px);
+    }
+  }
+}
+
+/* 宽屏布局 */
+@media screen and (min-width: 800px) {
+  .article-header {
+    padding-block-start: 3rem;
+  }
+
+  .article-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .post-meta {
+    margin-block-start: 0.5rem;
+    padding-block: 0.5rem;
+    padding-inline: 0;
+  }
+
+  .suggested {
+    flex-direction: row;
+  }
+
+  .suggested a {
+    flex: 0 0 calc(50% - 2rem);
+  }
+
+  .suggested a:first-of-type {
+    text-align: end;
+  }
+}

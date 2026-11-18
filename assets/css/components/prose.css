@@ -1,0 +1,337 @@
+.prose {
+  font-family: var(--article-font-family);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+.prose :where(p, ol, ul, dl, table, blockquote, figure) {
+  font-size: inherit;
+  margin-block: 0 1.5rem;
+  margin-inline: 0;
+}
+
+.prose :where(h1, h2, h3, h4, h5, h6) {
+  margin-block: 0 1.5rem;
+  margin-inline: 0;
+  font-weight: 700;
+  line-height: 1.2;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.prose :where(h1, h2, h3, h4, h5, h6):not(:first-child) {
+  margin-block-start: 3rem;
+}
+
+.heading-with-anchor {
+  display: grid;
+  grid-template-columns: 0 minmax(0, 1fr);
+}
+
+.heading-with-anchor:focus-within {
+  grid-template-columns: 20px minmax(0, 1fr);
+}
+
+.prose :where(h1) {
+  color: var(--h1-color);
+  font-size: 2.5rem;
+  line-height: 1.1;
+}
+
+.prose :where(h2) {
+  color: var(--heading-color);
+  font-size: 1.75rem;
+  padding-block-end: 0.5rem;
+  border-block-end: 4px solid var(--light-background);
+}
+
+.prose :where(h3, h4, h5, h6) {
+  margin-block-end: 1rem;
+}
+
+.prose :where(h3, h4, h6) {
+  color: var(--font-color);
+}
+
+.prose :where(h3, h6) {
+  font-weight: 600;
+}
+
+.prose :where(h3) {
+  font-size: 1.5rem;
+}
+
+.prose :where(h4) {
+  font-size: 1.3rem;
+  font-weight: 500;
+  padding-block-end: 0.25rem;
+  border-block-end: 2px solid var(--light-background);
+}
+
+.prose :where(h5) {
+  color: var(--heading-color);
+  font-size: 1.2rem;
+}
+
+.prose :where(h6) {
+  font-size: 1.05rem;
+}
+
+.prose :where(a) {
+  text-decoration: underline;
+  text-decoration-color: var(--medium-font-color);
+  text-underline-offset: 0.15em;
+  transition: text-decoration-color 0.3s var(--ease-out);
+}
+
+.heading-anchor {
+  align-self: start;
+  min-inline-size: 0;
+  overflow: clip;
+  color: var(--link-color);
+  stroke: currentColor;
+  stroke-width: 1px;
+  fill: currentColor;
+  text-decoration: none;
+}
+
+.heading-anchor-icon {
+  vertical-align: middle;
+  visibility: hidden;
+}
+
+.heading-anchor:focus-visible .heading-anchor-icon {
+  visibility: visible;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .prose :where(a):hover {
+    text-decoration-color: var(--link-color);
+  }
+
+  .heading-with-anchor:hover {
+    grid-template-columns: 20px minmax(0, 1fr);
+  }
+
+  .heading-with-anchor:hover .heading-anchor-icon {
+    visibility: visible;
+  }
+}
+
+.prose :where(ul, ol) {
+  padding-inline-start: 1.5rem;
+}
+
+.prose :where(li > p, blockquote p) {
+  margin: 0;
+}
+
+.prose :where(li > p + p, blockquote p + p) {
+  margin-block-start: 1rem;
+}
+
+.prose :where(li > ul, li > ol) {
+  margin: 0;
+}
+
+.prose .task-list-item [type='checkbox'] {
+  margin-inline-end: 0.5rem;
+}
+
+.prose :where(blockquote) {
+  margin-block: 2rem;
+  margin-inline: 0;
+  padding: 1rem;
+  background: var(--blockquote);
+  border-inline-start: 5px solid var(--blockquote-left);
+}
+
+.prose :where(video, iframe) {
+  max-inline-size: 100%;
+}
+
+.prose :where(video) {
+  block-size: auto;
+}
+
+.prose :where(img) {
+  border-radius: 5px;
+}
+
+.prose .lqip {
+  position: relative;
+  display: inline-block;
+  overflow: clip;
+  border-radius: 5px;
+  vertical-align: middle;
+}
+
+.prose .lqip > img {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: contain;
+}
+
+.prose .lqip::before,
+.prose .lqip::after {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.prose .lqip::before {
+  content: '';
+  inset: var(--lqip-inset, -8px);
+  background:
+    var(--lqip, none) center / cover no-repeat,
+    radial-gradient(ellipse at 12% 18%, oklch(83% 0.04 230), transparent 65%),
+    radial-gradient(ellipse at 86% 22%, oklch(85% 0.045 65), transparent 60%),
+    radial-gradient(ellipse at 68% 85%, oklch(78% 0.04 315), transparent 65%),
+    linear-gradient(135deg, oklch(81% 0.025 250), oklch(87% 0.025 80));
+  filter: var(--lqip-filter, blur(8px));
+}
+
+.prose .lqip::after {
+  content: '';
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 0.5rem;
+  background: oklch(0% 0 none / 0.15);
+  color: oklch(100% 0 none);
+  font-size: 0.875rem;
+  text-align: center;
+  text-shadow: 0 1px 4px oklch(0% 0 none);
+}
+
+.prose .lqip:is([data-lqip='loading'], [data-lqip='error']) > img {
+  opacity: 0;
+}
+
+.prose .lqip:is([data-lqip='loading'], [data-lqip='error'])::before,
+.prose .lqip[data-lqip='error']::after {
+  opacity: 1;
+}
+
+.prose .lqip[data-lqip='error']::after {
+  content: attr(data-error);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .prose .lqip[data-lqip='loading']::before {
+    animation: lqip-breathe 1.6s var(--ease-out) infinite alternate;
+  }
+
+  .prose .lqip[data-lqip='loaded'] > img,
+  .prose .lqip[data-lqip='loaded']::before {
+    transition: opacity 250ms var(--ease-out);
+  }
+}
+
+@keyframes lqip-breathe {
+  from {
+    opacity: 0.8;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.prose .block-image {
+  display: block;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+}
+
+.prose :where(figcaption) {
+  color: var(--medium-font-color);
+  font-size: 0.9em;
+}
+
+.prose :where(hr) {
+  border: 0;
+  border-block-start: 1px solid var(--border);
+  margin-block: 2rem;
+  margin-inline: 0;
+}
+
+.prose :where(mark) {
+  background: oklch(94.02106% 0.104863 96.8347);
+  color: oklch(23.22605% 0.015731 274.0977);
+}
+
+.prose :where(kbd) {
+  background: oklch(97.61388% 0 none);
+  border: 2px solid oklch(0% 0 none / 0.3);
+  border-radius: 3px;
+  box-shadow:
+    0 1px 0 oklch(0% 0 none / 0.2),
+    inset 0 0 0 2px oklch(100% 0 none);
+  color: oklch(32.10925% 0 none);
+  display: inline-block;
+  font-family: var(--base-font-family);
+  font-size: 0.8em;
+  line-height: 1.4;
+  margin-block: 0;
+  margin-inline: 0.1em;
+  padding-block: 0.1em;
+  padding-inline: 0.6em;
+}
+
+.prose .math-display {
+  max-inline-size: 100%;
+  overflow: auto;
+  padding-block: 0.25em;
+  padding-inline: 0;
+}
+
+@media (any-pointer: coarse) {
+  .heading-with-anchor {
+    grid-template-columns: 20px minmax(0, 1fr);
+  }
+
+  .heading-anchor-icon {
+    visibility: visible;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prose :where(a) {
+    transition: none;
+  }
+}
+
+/* 宽屏布局 */
+@media screen and (min-width: 800px) {
+  .prose {
+    font-size: 1.125rem;
+  }
+
+  .prose :where(h1) {
+    font-size: 3rem;
+  }
+
+  .prose :where(h2) {
+    font-size: 1.9rem;
+  }
+
+  .prose :where(h3) {
+    font-size: 1.7rem;
+  }
+
+  .prose :where(h4) {
+    font-size: 1.4rem;
+    font-weight: 400;
+  }
+
+  .prose :where(h6) {
+    font-size: 1.125rem;
+  }
+
+  .prose :where(blockquote) {
+    padding: 2rem;
+  }
+}

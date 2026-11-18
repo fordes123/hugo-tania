@@ -1,0 +1,9 @@
+/assets/vendor/
+/layouts/
+/exampleSite/public/
+/exampleSite/public-subpath/
+/exampleSite/resources/
+/node_modules/
+/.agents/
+/pnpm-lock.yaml
+/skills-lock.json

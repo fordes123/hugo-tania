@@ -1,0 +1,7 @@
+{{ if site.Params.comments.enabled }}
+  {{ $provider := site.Params.comments.provider }}
+  {{ if not (in (slice "giscus" "utterances" "twikoo" "cusdis" "disqus") $provider) }}
+    {{ errorf "无效的评论服务 %q；请选择 giscus、utterances、twikoo、cusdis 或 disqus" $provider }}
+  {{ end }}
+  <section class="comments" aria-label="{{ i18n "comments" }}">{{ partial (printf "comments/provider/%s.html" $provider) . }}</section>
+{{ end }}

@@ -1,0 +1,10 @@
+<footer class="footer flex">
+  <section class="container">
+    <nav class="footer-links" aria-label="{{ i18n "footerNavigation" }}">
+      {{ range site.Menus.footer }}<a href="{{ .URL | relURL }}">{{ .Name }}</a>{{ end }}
+    </nav>
+    {{ partial "footer/custom.html" . }}
+  </section>
+</footer>
+{{- $script := resources.Get "ts/main.ts" | js.Build (dict "minify" hugo.IsProduction "target" "es2020") | fingerprint -}}
+<script defer src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}" data-enable-footnotes="{{ site.Params.enableFootnotes }}" data-copy="{{ i18n "copy" }}" data-copied="{{ i18n "copied" }}" data-copy-failed="{{ i18n "copyFailed" }}" data-code-region="{{ i18n "codeRegion" }}"></script>

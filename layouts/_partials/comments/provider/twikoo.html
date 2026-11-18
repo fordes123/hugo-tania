@@ -1,0 +1,13 @@
+{{ $config := site.Params.comments.twikoo }}
+{{ if not $config.id }}{{ errorf "twikoo 评论需要配置 id" }}{{ end }}
+<div id="tcomment"></div>
+<script src="https://cdn.jsdelivr.net/npm/twikoo@1.6.40/dist/twikoo.min.js"></script>
+<script>
+  twikoo.init({
+    envId: {{ $config.id }},
+    el: '#tcomment',
+    region: {{ $config.region | default "ap-shanghai" }},
+    path: {{ $config.path | default .RelPermalink }},
+    lang: {{ $config.lang | default site.Language.Locale }}
+  });
+</script>

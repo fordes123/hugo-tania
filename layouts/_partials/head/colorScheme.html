@@ -1,0 +1,10 @@
+<script>
+  (() => {
+    const root = document.documentElement;
+    const initial = root.dataset.themeDefault;
+    const saved = root.dataset.themeToggle === 'true' ? localStorage.getItem('ThemeColorScheme') : null;
+    const preference = ['light', 'dark', 'auto'].includes(saved) ? saved : initial;
+    root.dataset.themePreference = preference;
+    root.dataset.userColorScheme = preference === 'dark' || (preference === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  })();
+</script>

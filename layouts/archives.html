@@ -1,0 +1,29 @@
+{{ define "main" }}
+{{ $pages := partial "article-pages.html" . }}
+<div class="container">
+  <header class="page-header"><h1>{{ .Title }}</h1>{{ with .Params.subtitle }}<p class="subtitle">{{ . }}</p>{{ end }}</header>
+  {{ with .Content }}<div class="content prose">{{ . }}</div>{{ end }}
+  {{ $searchIndex := site.Home.OutputFormats.Get "JSON" }}{{ if not $searchIndex }}{{ errorf "归档搜索需要在 outputs.home 中启用 JSON" }}{{ end }}
+  <div id="search" data-index="{{ $searchIndex.RelPermalink }}" data-loading="{{ i18n "searchLoading" }}" data-error="{{ i18n "searchError" }}" data-empty="{{ i18n "searchEmpty" }}" data-count="{{ i18n "searchResults" }}">
+    <div class="filter-container" aria-label="{{ i18n "categories" }}">
+      {{ $limit := 5 }}{{ if isset site.Params "maxcategorytoshow" }}{{ $limit = site.Params.maxCategoryToShow }}{{ end }}
+      {{ $shown := 0 }}
+      {{ range site.Taxonomies.categories.ByCount }}
+        {{ $count := len (intersect $pages .Pages) }}
+        {{ if and (gt $count 0) (lt $shown $limit) }}<button type="button" class="filter-item" data-category="{{ .Page.LinkTitle }}" aria-pressed="false">{{ .Page.LinkTitle }} <sup>{{ $count }}</sup></button>{{ $shown = add $shown 1 }}{{ end }}
+      {{ end }}
+    </div>
+    <label class="visually-hidden" for="search-query">{{ i18n "searchLabel" }}</label>
+    <input id="search-query" class="search-query" type="search" placeholder="{{ i18n "searchPlaceholder" }}" autocomplete="off">
+    <p id="search-status" class="search-status" role="status" aria-live="polite"></p>
+    <div id="search-results" hidden></div>
+    <div id="articles-list">
+      {{ range $pages.GroupByDate "2006" }}
+      <section class="content-section"><h2>{{ .Key }}</h2><div class="posts">{{ range .Pages }}{{ partial "article-row.html" . }}{{ end }}</div></section>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{- $search := resources.Get "ts/search/main.ts" | js.Build (dict "minify" hugo.IsProduction "target" "es2020") | fingerprint }}
+<script defer src="{{ $search.RelPermalink }}" integrity="{{ $search.Data.Integrity }}"></script>
+{{ end }}

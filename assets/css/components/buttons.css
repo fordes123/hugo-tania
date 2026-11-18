@@ -1,0 +1,56 @@
+.link {
+  border-radius: 0.35rem;
+  color: var(--dark-font-color);
+  display: block;
+  font-weight: 600;
+  margin-block: 0.25rem;
+  margin-inline: 0;
+  padding-block: 0.25rem;
+  padding-inline: 0;
+}
+
+.button {
+  background: var(--color-button);
+  border: 2px solid var(--color-button);
+  border-radius: 0.35rem;
+  color: var(--color-button-text);
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-inline-end: 0.75rem;
+  padding-block: 0.3rem;
+  padding-inline: 0.6rem;
+}
+
+.button.large {
+  font-size: 1.05rem;
+  padding-block: 0.8rem;
+  padding-inline: 1rem;
+}
+
+.button.secondary {
+  background: oklch(96.11593% 0.018238 269.0896);
+  border-color: oklch(96.11593% 0.018238 269.0896);
+  color: oklch(52.55568% 0.198793 268.0378);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: var(--link-color);
+  }
+
+  .button:hover {
+    background: var(--color-button-hover);
+    border-color: var(--color-button-hover);
+    color: oklch(100% 0 none);
+  }
+}
+
+/* 宽屏布局 */
+@media screen and (min-width: 800px) {
+  .button.large {
+    font-size: 1.1rem;
+    padding-block: 1rem;
+    padding-inline: 1.5rem;
+  }
+}

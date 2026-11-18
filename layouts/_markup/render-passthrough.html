@@ -1,0 +1,6 @@
+{{- $opts := dict "output" "htmlAndMathml" "displayMode" (eq .Type "block") -}}
+{{- with try (transform.ToMath .Inner $opts) -}}
+  {{- with .Err -}}{{ errorf "无法渲染公式 %s: %s" $.Position . }}{{- else -}}
+    {{- if eq $.Type "block" }}<div class="math-display" role="region" aria-label="{{ i18n "mathRegion" }}" tabindex="0">{{ .Value }}</div>{{ else }}{{ .Value }}{{ end -}}{{- $.Page.Store.Set "hasMath" true -}}
+  {{- end -}}
+{{- end -}}

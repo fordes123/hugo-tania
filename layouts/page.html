@@ -1,0 +1,35 @@
+{{ define "main" }}
+<article>
+  <header class="article-header container">
+    <h1>{{ .Title }}</h1>
+    {{ if in site.Params.mainSections .Type }}
+    <div class="post-meta">
+      {{ with (.Params.author | default site.Params.author) }}<span>{{ i18n "by" }} {{ . }}</span><span aria-hidden="true"> | </span>{{ end }}
+      {{ $format := site.Params.dateFormat.single | default "Jan 02, 2006" }}
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format $format }}</time>
+      <span aria-hidden="true"> | </span><span>{{ i18n "readingTime" .ReadingTime }}</span>
+      {{ with .GetTerms "tags" }}<div class="tags">{{ range . }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}</div>{{ end }}
+    </div>
+    {{ end }}
+  </header>
+  <div class="article-layout">
+    {{ if and .TableOfContents (gt (len .Fragments.Headings) 0) }}
+    <aside class="toc" aria-label="{{ i18n "tableOfContents" }}">
+      <details open><summary>{{ i18n "tableOfContents" }}</summary>{{ .TableOfContents }}</details>
+    </aside>
+    {{ end }}
+    <div class="article-post prose">{{ .Content }}</div>
+    <aside class="side-notes prose" aria-label="{{ i18n "sideNotes" }}" hidden></aside>
+  </div>
+</article>
+{{ if in site.Params.mainSections .Type }}
+<div class="container">
+  <nav class="flex suggested" aria-label="{{ i18n "postNavigation" }}">
+    {{ with .PrevInSection }}<a rel="prev" href="{{ .RelPermalink }}"><span>{{ i18n "previous" }}</span>{{ .Title }}</a>{{ end }}
+    {{ with .NextInSection }}<a rel="next" href="{{ .RelPermalink }}"><span>{{ i18n "next" }}</span>{{ .Title }}</a>{{ end }}
+  </nav>
+  {{ $comments := true }}{{ if isset .Params "comments" }}{{ $comments = .Params.comments }}{{ end }}
+  {{ if $comments }}{{ partial "comments/include.html" . }}{{ end }}
+</div>
+{{ end }}
+{{ end }}

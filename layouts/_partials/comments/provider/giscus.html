@@ -1,0 +1,29 @@
+{{ $config := site.Params.comments.giscus }}
+{{ if or (not $config.repo) (not $config.id) (not $config.category.name) (not $config.category.id) }}{{ errorf "giscus 评论需要配置 repo、id、category.name 和 category.id" }}{{ end }}
+{{ $reactions := 1 }}{{ if isset $config "reactionsenabled" }}{{ $reactions = $config.reactionsEnabled }}{{ end }}
+{{ $metadata := 0 }}{{ if isset $config "emitmetadata" }}{{ $metadata = $config.emitMetadata }}{{ end }}
+<script>
+  (() => {
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    script.dataset.repo = {{ $config.repo }};
+    script.dataset.repoId = {{ $config.id }};
+    script.dataset.category = {{ $config.category.name }};
+    script.dataset.categoryId = {{ $config.category.id }};
+    script.dataset.mapping = {{ $config.mapping | default "pathname" }};
+    script.dataset.reactionsEnabled = String({{ $reactions }});
+    script.dataset.emitMetadata = String({{ $metadata }});
+    script.dataset.theme = document.documentElement.dataset.userColorScheme;
+    document.currentScript.after(script);
+    function sync(theme) {
+      const frame = document.querySelector('.giscus iframe');
+      if (frame) frame.contentWindow.postMessage({giscus: {setConfig: {theme}}}, 'https://giscus.app');
+    }
+    window.addEventListener('message', event => {
+      if (event.origin === 'https://giscus.app') sync(document.documentElement.dataset.userColorScheme);
+    });
+    window.addEventListener('onColorSchemeChange', event => sync(event.detail));
+  })();
+</script>

@@ -1,0 +1,19 @@
+<nav class="navbar" aria-label="{{ i18n "mainNavigation" }}">
+  <div class="container navbar-inner">
+    <a class="navbar-link navbar-brand" href="{{ site.Home.RelPermalink }}">
+      {{ with site.Params.titleEmoji }}<span class="emoji" aria-hidden="true">{{ . }}</span>{{ end }}
+      {{ with site.Params.titleLogo }}<img src="{{ strings.TrimPrefix "/" . | relURL }}" width="26" height="26" alt="">{{ end }}
+      {{ if not site.Params.hiddenTitleInHeader }}{{ site.Title }}{{ else }}<span class="visually-hidden">{{ site.Title }}</span>{{ end }}
+    </a>
+    <div class="navbar-links">
+      {{ range site.Menus.header }}<a class="navbar-link" href="{{ .URL | relURL }}"{{ if eq .URL $.RelPermalink }} aria-current="page"{{ end }}>{{ .Pre }}{{ .Name }}{{ .Post }}</a>{{ end }}
+      {{ if site.Params.colorScheme.toggle }}
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="{{ i18n "toggleTheme" }}" title="{{ i18n "toggleTheme" }}" data-auto="{{ i18n "themeAuto" }}" data-light="{{ i18n "themeLight" }}" data-dark="{{ i18n "themeDark" }}">
+        <span class="theme-auto" aria-hidden="true">{{ partial "icons/icon" (dict "vendor" "fas" "name" "circle-half-stroke" "size" "1em" "color" "#ffd983") }}</span>
+        <span class="theme-light" aria-hidden="true">{{ partial "icons/icon" (dict "vendor" "fas" "name" "sun" "size" "1em" "color" "#ffd983") }}</span>
+        <span class="theme-dark" aria-hidden="true">{{ partial "icons/icon" (dict "vendor" "fas" "name" "moon" "size" "1em" "color" "#ffd983") }}</span>
+      </button>
+      {{ end }}
+    </div>
+  </div>
+</nav>

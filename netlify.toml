@@ -1,7 +1,7 @@
 [build]
-    publish = "hugo-tania/exampleSite/public"
-    command = "mkdir -p hugo-tania; mv ./* hugo-tania/; cd hugo-tania; yarn; yarn build"
+  publish = "exampleSite/public"
+  command = "hugo --source exampleSite --minify"
 
 [build.environment]
-    GO_VERSION = "1.22.0"
-    HUGO_VERSION = "0.140.0"
+  GO_VERSION = "1.27.4"
+  HUGO_VERSION = "0.170.1"

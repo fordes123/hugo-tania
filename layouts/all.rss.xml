@@ -1,0 +1,24 @@
+{{- $pages := .RegularPages -}}
+{{- if .IsHome }}{{ $pages = partial "article-pages.html" . }}{{ end -}}
+{{- with site.Config.Services.RSS.Limit }}{{ if ge . 1 }}{{ $pages = first . $pages }}{{ end }}{{ end -}}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>{{ site.Params.siteDesc | default site.Title }}</description>
+    <generator>Hugo</generator>
+    <language>{{ site.Language.Locale | default site.Language.Lang }}</language>
+    {{ with site.Copyright }}<copyright>{{ . }}</copyright>{{ end }}
+    {{ with .OutputFormats.Get "RSS" }}<atom:link href="{{ .Permalink }}" rel="self" type="{{ .MediaType.Type }}" />{{ end }}
+    {{ range $pages }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
+      <guid>{{ .Permalink }}</guid>
+      <description>{{ .Content | html }}</description>
+    </item>
+    {{ end }}
+  </channel>
+</rss>

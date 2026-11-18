@@ -1,0 +1,146 @@
+/* 主题颜色与字体 */
+:root {
+  color-scheme: light;
+  --color-mode: light;
+  --color-dark-weight: 0%;
+  --tania-navigation-height: 4.5rem;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --color-title: color-mix(
+    in oklch,
+    oklch(100% 0 none) var(--color-dark-weight),
+    oklch(34.51431% 0.013291 248.2124)
+  );
+  --color-text: color-mix(
+    in oklch,
+    oklch(91.08742% 0.006959 247.9014) var(--color-dark-weight),
+    oklch(42.75623% 0.014702 248.1715)
+  );
+  --color-heading: color-mix(
+    in oklch,
+    oklch(88.84231% 0.1199 84.6568) var(--color-dark-weight),
+    oklch(34.51431% 0.013291 248.2124)
+  );
+  --color-background: color-mix(
+    in oklch,
+    oklch(24.32882% 0.004073 264.4918) var(--color-dark-weight),
+    oklch(100% 0 none)
+  );
+  --color-text-strong: color-mix(
+    in oklch,
+    oklch(86.70742% 0.010568 247.9485) var(--color-dark-weight),
+    oklch(23.22605% 0.015731 274.0977)
+  );
+  --color-text-muted: color-mix(
+    in oklch,
+    oklch(78.47293% 0.018262 264.4631) var(--color-dark-weight),
+    oklch(50.47989% 0.012721 256.7376)
+  );
+  --color-text-subtle: color-mix(
+    in oklch,
+    oklch(64.27508% 0.015183 248.0644) var(--color-dark-weight),
+    oklch(55.95185% 0.0163 254.6727)
+  );
+  --color-surface: color-mix(
+    in oklch,
+    oklch(29.87335% 0.007152 285.9589) var(--color-dark-weight),
+    oklch(96.60133% 0.006241 255.475)
+  );
+  --color-surface-hover: color-mix(
+    in oklch,
+    oklch(35.34354% 0.005133 286.1342) var(--color-dark-weight),
+    oklch(92.31539% 0.010918 256.6972)
+  );
+  --color-border: color-mix(
+    in oklch,
+    oklch(37.14949% 0 none) var(--color-dark-weight),
+    oklch(88.44384% 0.007583 260.7316)
+  );
+  --color-accent: color-mix(
+    in oklch,
+    oklch(73.8463% 0.120768 248.7719) var(--color-dark-weight),
+    oklch(53.49624% 0.166372 262.1963)
+  );
+  --color-accent-dark: color-mix(
+    in oklch,
+    oklch(54.51869% 0.092138 255.0533) var(--color-dark-weight),
+    oklch(48.41329% 0.188275 269.0678)
+  );
+  --color-button: var(--link-color);
+  --color-button-hover: var(--link-color-darker);
+  --color-button-text: color-mix(
+    in oklch,
+    oklch(24.32882% 0.004073 264.4918) var(--color-dark-weight),
+    oklch(100% 0 none)
+  );
+  --color-navbar: color-mix(
+    in oklch,
+    oklch(23.07505% 0 none) var(--color-dark-weight),
+    var(--color-background)
+  );
+  --color-quote: color-mix(
+    in oklch,
+    oklch(28.908% 0 none) var(--color-dark-weight),
+    oklch(98.21176% 0 none)
+  );
+  --color-quote-border: color-mix(
+    in oklch,
+    oklch(21.34225% 0 none) var(--color-dark-weight),
+    oklch(92.40799% 0.0075 260.7315)
+  );
+  --color-overlay-text: color-mix(
+    in oklch,
+    oklch(100% 0 none / 0.7) var(--color-dark-weight),
+    oklch(0% 0 none / 0.7)
+  );
+  --color-overlay: color-mix(
+    in oklch,
+    oklch(0% 0 none / 0.2) var(--color-dark-weight),
+    oklch(0% 0 none / 0.05)
+  );
+  --color-overlay-light: color-mix(
+    in oklch,
+    oklch(100% 0 none / 0.05) var(--color-dark-weight),
+    oklch(100% 0 none / 0.1)
+  );
+  --h1-color: var(--color-title);
+  --font-color: var(--color-text);
+  --heading-color: var(--color-heading);
+  --background: var(--color-background);
+  --dark-font-color: var(--color-text-strong);
+  --medium-font-color: var(--color-text-muted);
+  --light-font-color: var(--color-text-subtle);
+  --light-background: var(--color-surface);
+  --light-background-hover: var(--color-surface-hover);
+  --border: var(--color-border);
+  --link-color: var(--color-accent);
+  --link-color-darker: var(--color-accent-dark);
+  --navbar-color: var(--color-navbar);
+  --blockquote: var(--color-quote);
+  --blockquote-left: var(--color-quote-border);
+  --transparent-text: var(--color-overlay-text);
+  --transparent-bg: var(--color-overlay);
+  --light-transparent-bg: var(--color-overlay-light);
+  --sys-font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Droid Sans',
+    'Helvetica Neue';
+  --zh-font-family:
+    'PingFang SC', 'Hiragino Sans GB', 'Droid Sans Fallback', 'Microsoft YaHei';
+  --base-font-family: var(--sys-font-family), var(--zh-font-family), sans-serif;
+  --code-font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+  --article-font-family: var(--base-font-family);
+}
+
+/* 深色模式 */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-user-color-scheme]) {
+    color-scheme: dark;
+    --color-mode: dark;
+    --color-dark-weight: 100%;
+  }
+}
+
+[data-user-color-scheme='dark'] {
+  color-scheme: dark;
+  --color-mode: dark;
+  --color-dark-weight: 100%;
+}
